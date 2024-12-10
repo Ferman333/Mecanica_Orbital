@@ -1,0 +1,145 @@
+%
+%   Spacecraft
+% %----------------------------------------
+%---------- Spacecraft
+%----------------------------------------
+
+
+%----------------------------------------
+%---------- Spacecraft
+%----------------------------------------
+
+Create Spacecraft Landsat9;
+GMAT Landsat9.DateFormat = UTCGregorian;
+GMAT Landsat9.Epoch = '01 Jan 2000 11:59:28.000';
+GMAT Landsat9.CoordinateSystem = EarthMJ2000Eq;
+GMAT Landsat9.DisplayStateType = Cartesian;
+GMAT Landsat9.X = 7100;
+GMAT Landsat9.Y = 0;
+GMAT Landsat9.Z = 1300;
+GMAT Landsat9.VX = 0;
+GMAT Landsat9.VY = 7.35;
+GMAT Landsat9.VZ = 1;
+GMAT Landsat9.DryMass = 850;
+GMAT Landsat9.Cd = 2.2;
+GMAT Landsat9.Cr = 1.8;
+GMAT Landsat9.DragArea = 15;
+GMAT Landsat9.SRPArea = 1;
+GMAT Landsat9.SPADDragScaleFactor = 1;
+GMAT Landsat9.SPADSRPScaleFactor = 1;
+GMAT Landsat9.AtmosDensityScaleFactor = 1;
+GMAT Landsat9.ExtendedMassPropertiesModel = 'None';
+GMAT Landsat9.EphemerisName = 'C:\Users\SPARTAN PC\Documents\Mecanica_Orbital\Software\Proyectos\Landsat_9\Landsat_9_TLE.txt';
+GMAT Landsat9.NAIFId = -10010001;
+GMAT Landsat9.NAIFIdReferenceFrame = -9010001;
+GMAT Landsat9.OrbitColor = Red;
+GMAT Landsat9.TargetColor = Teal;
+GMAT Landsat9.OrbitErrorCovariance = [ 1e+70 0 0 0 0 0 ; 0 1e+70 0 0 0 0 ; 0 0 1e+70 0 0 0 ; 0 0 0 1e+70 0 0 ; 0 0 0 0 1e+70 0 ; 0 0 0 0 0 1e+70 ];
+GMAT Landsat9.CdSigma = 1e+70;
+GMAT Landsat9.CrSigma = 1e+70;
+GMAT Landsat9.Id = 'LANDSAT 9';
+GMAT Landsat9.Attitude = CoordinateSystemFixed;
+GMAT Landsat9.SPADSRPInterpolationMethod = Bilinear;
+GMAT Landsat9.SPADSRPScaleFactorSigma = 1e+70;
+GMAT Landsat9.SPADDragInterpolationMethod = Bilinear;
+GMAT Landsat9.SPADDragScaleFactorSigma = 1e+70;
+GMAT Landsat9.AtmosDensityScaleFactorSigma = 1e+70;
+GMAT Landsat9.ModelFile = 'aura.3ds';
+GMAT Landsat9.ModelOffsetX = 0;
+GMAT Landsat9.ModelOffsetY = 0;
+GMAT Landsat9.ModelOffsetZ = 0;
+GMAT Landsat9.ModelRotationX = 0;
+GMAT Landsat9.ModelRotationY = 0;
+GMAT Landsat9.ModelRotationZ = 0;
+GMAT Landsat9.ModelScale = 1;
+GMAT Landsat9.AttitudeDisplayStateType = 'Quaternion';
+GMAT Landsat9.AttitudeRateDisplayStateType = 'AngularVelocity';
+GMAT Landsat9.AttitudeCoordinateSystem = EarthMJ2000Eq;
+GMAT Landsat9.EulerAngleSequence = '321';
+
+%----------------------------------------
+%---------- Propagators
+%----------------------------------------
+
+Create Propagator TLEProp;
+GMAT TLEProp.Type = SPICESGP4;
+GMAT TLEProp.InitialStepSize = 100;
+
+%----------------------------------------
+%---------- Subscribers
+%----------------------------------------
+
+Create ReportFile rf;
+GMAT rf.SolverIterations = Current;
+GMAT rf.UpperLeft = [ 0 0 ];
+GMAT rf.Size = [ 0 0 ];
+GMAT rf.RelativeZOrder = 0;
+GMAT rf.Maximized = false;
+GMAT rf.Filename = 'C:\Users\SPARTAN PC\Documents\Mecanica_Orbital\Software\Proyectos\Landsat_9\Landsat_9_Report.txt';
+GMAT rf.Precision = 16;
+GMAT rf.Add = {Landsat9.UTCGregorian, Landsat9.X, Landsat9.Y, Landsat9.Z, Landsat9.VX, Landsat9.VY, Landsat9.VZ};
+GMAT rf.WriteHeaders = true;
+GMAT rf.LeftJustify = On;
+GMAT rf.ZeroFill = Off;
+GMAT rf.FixedWidth = true;
+GMAT rf.Delimiter = ' ';
+GMAT rf.ColumnWidth = 23;
+GMAT rf.WriteReport = true;
+
+Create GroundTrackPlot GroundTrackPlot1;
+GMAT GroundTrackPlot1.SolverIterations = Current;
+GMAT GroundTrackPlot1.UpperLeft = [ 0.002941176470588235 0 ];
+GMAT GroundTrackPlot1.Size = [ 0.5 0.4502487562189055 ];
+GMAT GroundTrackPlot1.RelativeZOrder = 219;
+GMAT GroundTrackPlot1.Maximized = false;
+GMAT GroundTrackPlot1.Add = {Landsat9};
+GMAT GroundTrackPlot1.DataCollectFrequency = 1;
+GMAT GroundTrackPlot1.UpdatePlotFrequency = 50;
+GMAT GroundTrackPlot1.NumPointsToRedraw = 0;
+GMAT GroundTrackPlot1.ShowPlot = true;
+GMAT GroundTrackPlot1.MaxPlotPoints = 20000;
+GMAT GroundTrackPlot1.CentralBody = Earth;
+GMAT GroundTrackPlot1.TextureMap = 'ModifiedBlueMarble.jpg';
+
+Create OrbitView OrbitView1;
+GMAT OrbitView1.SolverIterations = Current;
+GMAT OrbitView1.UpperLeft = [ 0.002941176470588235 0.4552238805970149 ];
+GMAT OrbitView1.Size = [ 0.5 0.4502487562189055 ];
+GMAT OrbitView1.RelativeZOrder = 217;
+GMAT OrbitView1.Maximized = false;
+GMAT OrbitView1.Add = {Landsat9, Earth};
+GMAT OrbitView1.CoordinateSystem = EarthMJ2000Eq;
+GMAT OrbitView1.DrawObject = [ true true ];
+GMAT OrbitView1.DataCollectFrequency = 1;
+GMAT OrbitView1.UpdatePlotFrequency = 50;
+GMAT OrbitView1.NumPointsToRedraw = 0;
+GMAT OrbitView1.ShowPlot = true;
+GMAT OrbitView1.MaxPlotPoints = 20000;
+GMAT OrbitView1.ShowLabels = true;
+GMAT OrbitView1.ViewPointReference = Earth;
+GMAT OrbitView1.ViewPointVector = [ 0 0 30000 ];
+GMAT OrbitView1.ViewDirection = Earth;
+GMAT OrbitView1.ViewScaleFactor = 1;
+GMAT OrbitView1.ViewUpCoordinateSystem = EarthMJ2000Eq;
+GMAT OrbitView1.ViewUpAxis = Z;
+GMAT OrbitView1.EclipticPlane = Off;
+GMAT OrbitView1.XYPlane = On;
+GMAT OrbitView1.WireFrame = Off;
+GMAT OrbitView1.Axes = On;
+GMAT OrbitView1.Grid = Off;
+GMAT OrbitView1.SunLine = Off;
+GMAT OrbitView1.UseInitialView = On;
+GMAT OrbitView1.StarCount = 7000;
+GMAT OrbitView1.EnableStars = On;
+GMAT OrbitView1.EnableConstellations = On;
+
+%----------------------------------------
+%---------- Mission Sequence
+%----------------------------------------
+
+BeginMissionSequence;
+
+Propagate TLEProp(Landsat9) {Landsat9.ElapsedDays = 10.0};
+
+
+

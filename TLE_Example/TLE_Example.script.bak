@@ -1,0 +1,35 @@
+%
+%   Spacecraft
+% %----------------------------------------
+%---------- Spacecraft
+%----------------------------------------
+
+Create Spacecraft ExampleSat;
+ExampleSat.DateFormat = UTCGregorian;
+ExampleSat.EphemerisName = 'C:\Users\SPARTAN PC\Documents\Mecanica_Orbital\Software\Proyectos\TLE_Example\ExPropagation_TLE.txt';
+ExampleSat.Id = 'ExampleSat';
+
+%----------------------------------------
+%---------- Propagators
+%----------------------------------------
+
+Create Propagator TLEProp;
+TLEProp.Type = SPICESGP4;
+TLEProp.StepSize = 300;
+
+%----------------------------------------
+%---------- Subscribers
+%----------------------------------------
+
+Create ReportFile rf;
+rf.Filename = BasicPropagation.txt
+rf.Add = {ExampleSat.UTCGregorian, ExampleSat.X, ExampleSat.Y, ExampleSat.Z, ExampleSat.VX, ExampleSat.VY, ExampleSat.VZ}
+
+%----------------------------------------
+%---------- Mission Sequence
+%----------------------------------------
+
+BeginMissionSequence;
+
+Propagate TLEProp(ExampleSat) {ExampleSat.ElapsedDays = 1.0};
+
